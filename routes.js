@@ -7,6 +7,7 @@ var express = require('express');
 var router = express.Router(); //We create a router object to create GET,POST,PUT,DELETE
 
 var Paciente = require('./models/paciente');
+var Terapia = require('./models/terapia');
 
 router.use(function(req, res, next){
 
@@ -75,6 +76,32 @@ router.route('/pacientes/:paciente_id')
 
           res.json({ message: 'Borrado'});
         });
+    });
+
+  router.route('/terapias')
+    .post(function(req, res){
+        var terapia = new Terapia();
+        terapia.practica = req.body.practica;
+        terapia.tiempo = req.body.tiempo;
+        terapia.ejeY = req.body.ejeY;
+        terapia.ejeZ = req.body.ejeZ;
+        terapia.musculo = req.body.musculo;
+        terapia.fecha = req.body.fecha;
+        terapia.paciente = req.body.paciente_id;
+        terapia.save(function(err, terapia){
+          if(err) res.send(err);
+
+          res.json({message: 'terapia creada'})
+        });
+    })
+    .get(function(req, res){
+      Terapia.find(function(err, terapia){
+        Paciente.populate(terapia, {path: "paciente"}, function(err, terapia){
+          if(err) res.send(err);
+
+          res.json({ terapia });
+          });
+      });
     });
 
 

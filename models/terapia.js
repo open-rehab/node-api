@@ -5,13 +5,13 @@ var Paciente = mongoose.model('Paciente');
 var terapiaSchema = new Schema({
 	practica: String,
 	tiempo: Number,
-	ejeY: Number,
+	ejeY: { type: Number, default: []},
 	ejeZ: Number,
 	musculo: Number,
 	fecha: Date,
 	paciente: {
 		type: Schema.ObjectId,
-		ref: Paciente
+		ref: "Paciente"
 	}
 });
 

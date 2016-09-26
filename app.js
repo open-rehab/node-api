@@ -8,7 +8,7 @@ var app = express();
 
 var mongoose = require('mongoose');
 
-mongoose.connect("mongodb://localhost:27017/sandbox");
+mongoose.connect("mongodb://ginx:vco@ds041546.mlab.com:41546/terapias");
 
 app.use(logger('dev'));
 //Pass a middleware object
